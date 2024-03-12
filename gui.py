@@ -42,7 +42,7 @@ def refresh_leaderboard_callback(sender, app_data):
 dpg.create_context()
 dpg.create_viewport(title="Rating System", width=800, height=600)
 
-with dpg.window(label="Astro Duel II - Trueskill", width=800, height=600):
+with dpg.window(label="Astro Duel II - Trueskill", width=800, height=600, tag="main_window"):
 
     dpg.add_button(label="Regenerate Ratings", callback=recalculate_all_ratings)
     
@@ -72,7 +72,8 @@ with dpg.window(label="Astro Duel II - Trueskill", width=800, height=600):
         dpg.add_button(label="Refresh", callback=refresh_leaderboard_callback)
     
     with dpg.collapsing_header(label="Match Management"):
-        dpg.add_listbox(label="Players", items=["Old Mines", "Highrise", "Frontier", "Dark Lab", "Echo City", "Flare Watch", "Sunken Temple", "Gas Rigs"], tag="match_creator_map")
+        maps = ["Old Mines", "Highrise", "Frontier", "Dark Lab", "Echo City", "Flare Watch", "Sunken Temple", "Gas Rigs"]
+        dpg.add_listbox(label="Players", items=maps, num_items=len(maps), tag="match_creator_map")
 
         dpg.add_checkbox(label="Teams", default_value=False, tag="match_creator_teams")
 
@@ -89,5 +90,6 @@ with dpg.window(label="Astro Duel II - Trueskill", width=800, height=600):
 
 dpg.setup_dearpygui()
 dpg.show_viewport()
+dpg.set_primary_window("main_window", True)
 dpg.start_dearpygui()
 dpg.destroy_context()
